@@ -74,12 +74,13 @@
             }
  
 
-            for(i in prediction){
-              if(i.probability > 0.85){
-                if(i != mostRecentWord){
-                  mostRecentWord = i.className;
-                  sentence = sentence + i.className;
+            for (let i = 0; i < maxPredictions; i++) {
+              if(prediction[i].probability > 0.85){
+                if(predictiction[i] != mostRecentWord){
+                  mostRecentWord = prediction[i].className;
+                  sentence = sentence + prediction[i].className;
                 }
+                console.log(sentence);
                 conclusion.innerHTML = sentence;
                 
                 
