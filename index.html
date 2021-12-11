@@ -6,7 +6,6 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <a href="fileUpload.html">File-Upload version</a>
     <div>SamurAI Model</div>
     <button type="button" onclick="init()">Start</button>
     <div id="webcam-container"></div>
@@ -21,6 +20,8 @@
 
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/Ve9M2Sado/";
+        var sentence = "";
+        var mostRecentWord = "";
         
 
         let model, webcam, labelContainer, maxPredictions, conclusion, otherModel, personContainer, model2;
@@ -71,24 +72,18 @@
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
-            let noMaskProb = prediction[1].probability;
-            let maskProb = prediction[0].probability;
-          
+ 
 
-            if(noMaskProb > 0.85){
-              conclusion.innerHTML = "Dangerous (No Mask)";
-              labelContainer.style.backgroundColor = "red";
-              conclusion.style.backgroundColor = "red";
-            }
-            else if(maskProb > 0.85){
-              conclusion.innerHTML = "Not dangerous (Masked person or No Person)";
-              labelContainer.style.backgroundColor = "green";
-              conclusion.style.backgroundColor = "green";
-            }
-            else{
-              conclusion.innerHTML = "Inconclusive";
-              labelContainer.style.backgroundColor = "white";
-              conclusion.style.backgroundColor = "white";
+            for(i in prediction){
+              if(i.probability > 0.85){
+                if(i != mostRecentWord){
+                  mostRecentWord = i.className;
+                  sentence = sentence + i.className;
+                }
+                conclusion.innerHTML = sentence;
+                
+                
+              }
             }
 
         }
