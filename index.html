@@ -78,7 +78,7 @@
               if(prediction[i].probability > 0.85){
                 if(prediction[i].className != mostRecentWord){
                   mostRecentWord = prediction[i].className;
-                  sentence = sentence + prediction[i].className;
+                  sentence = sentence + prediction[i].className + " ";
                 }
                 console.log(sentence);
                 conclusion.innerHTML = sentence;
